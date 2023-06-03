@@ -2,10 +2,13 @@ name: Chapter 15 - Serenity/JS examples
 
 on:
   push:
-    branches: [ master ]
+    paths:
+      - 'chapter-15/**' 
+    branches:
+      - main
   pull_request:
-    branches: [ master ]
-    types: [ opened, synchronize ]
+    branches:
+      - main
 
 jobs:
   build:

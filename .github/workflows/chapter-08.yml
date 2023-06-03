@@ -1,0 +1,71 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Chapter 8
+
+on:
+  push:
+    paths:
+      - 'chapter-08/**' 
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-java:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: chapter-08/java/flying-high
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v1
+      with:
+        java-version: 17
+
+    - name: Build with Gradle
+      run: gradle clean test
+
+    - name: Build with Maven
+      run: mvn -B verify
+
+    - name: Archive Serenity Summary Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: serenity-summary
+        path: chapter-07/flying-high/target/site/serenity/serenity-summary.html
+
+    - name: Archive Full Serenity Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: serenity-report
+        path: chapter-07/flying-high/target/site/serenity/
+
+  build-typescript:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: chapter-07/typescript/flying-high
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install node modules
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
