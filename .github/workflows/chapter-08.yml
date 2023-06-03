@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Chapter 8
+name: Chapter 08
 
 on:
   push:
@@ -40,13 +40,13 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: serenity-summary
-        path: chapter-07/flying-high/target/site/serenity/serenity-summary.html
+        path: chapter-08/java/flying-high/target/site/serenity/serenity-summary.html
 
     - name: Archive Full Serenity Report
       uses: actions/upload-artifact@v2
       with:
         name: serenity-report
-        path: chapter-07/flying-high/target/site/serenity/
+        path: chapter-08/java/flying-high/target/site/serenity/
 
   build-typescript:
 
